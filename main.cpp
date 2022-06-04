@@ -13,15 +13,32 @@ int main()
     
     // textures
     Texture2D map = LoadTexture("clash_textures/WorldMap.png");
+
+    // vectors
+    Vector2 mapPos { 0.0f, 0.0f };
+
+    float speed { 4.0f };
+
     while (!WindowShouldClose())
     {
         // drawing start
         BeginDrawing();
         ClearBackground(WHITE);
 
+        // movement
+        Vector2 direction{};
+        if (IsKeyDown(KEY_A)) direction.x -= 1.0f ;
+        if (IsKeyDown(KEY_D)) direction.x += 1.0f ;
+        if (IsKeyDown(KEY_W)) direction.y -= 1.0f ;
+        if (IsKeyDown(KEY_S)) direction.y += 1.0f ;
+
+        if (Vector2Length(direction) != 0.0f)
+        {
+            // set mapPos = mapPos - direction
+            mapPos = Vector2Subtract(mapPos, Vector2Scale(Vector2Normalize(direction), speed));
+        }
+
         // draw background
-        
-        Vector2 mapPos { 0.0f, 0.0f};
         DrawTextureEx(map, mapPos, 0.0f, 4.0f, WHITE);
 
         ////
