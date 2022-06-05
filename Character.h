@@ -7,7 +7,7 @@ public:
     Vector2 getWorldPos(); 
     void tick(float deltaTime);
     void undoMovement();
-
+    Rectangle getCollisionRec();
 private:
     Texture2D texture{LoadTexture("clash_textures/player_idle.png")};
     Texture2D idle{LoadTexture("clash_textures/player_idle.png")};

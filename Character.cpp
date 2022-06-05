@@ -21,6 +21,16 @@ Vector2 Character::getWorldPos()
     return worldPos;
 }
 
+Rectangle Character::getCollisionRec()
+{
+    return Rectangle{
+        screenPos.x,
+        screenPos.y,
+        width * scale,
+        height * scale
+    };
+}
+
 void Character::undoMovement()
 {
     worldPos = worldPosLastFrame;
