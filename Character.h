@@ -3,9 +3,8 @@
 class Character
 {
 public:
-    Character();
+    Character(int winWidth, int winHeight, Vector2 initWorldPos);
     Vector2 getWorldPos(); 
-    void setScreenPos(int winWidth, int winHeight);
     void tick(float deltaTime);
     void undoMovement();
 
@@ -14,7 +13,7 @@ private:
     Texture2D idle{LoadTexture("clash_textures/player_idle.png")};
     Texture2D run{LoadTexture("clash_textures/player_run.png")};
     Vector2 screenPos{};
-    Vector2 worldPos{};
+    Vector2 worldPos{}; 
     Vector2 worldPosLastFrame{};
     float width{};
     float height{};
@@ -26,4 +25,5 @@ private:
     int maxFrames{6};
     float updateTime{1.f / 12.f};
     float speed{4.0f};
+    float scale{4.0f};
 };

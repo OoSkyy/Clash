@@ -12,9 +12,9 @@ int main()
     Texture2D map = LoadTexture("clash_textures/WorldMap.png");
     Vector2 mapPos{0.0f, 0.0f};
     const float mapScale{4.0f};
+    Vector2 initialWorldPos{200.0f, 200.0f};
 
-    Character steve;
-    steve.setScreenPos(windowWidth, windowHeight);
+    Character steve(windowWidth, windowHeight, initialWorldPos);
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -28,9 +28,9 @@ int main()
 
         // check map bounds
         steve.tick(GetFrameTime());
-        if (steve.getWorldPos().x < 0.0f || 
+        if (steve.getWorldPos().x < 60.0f || 
             steve.getWorldPos().y < 0.0f || 
-            steve.getWorldPos().x + windowWidth > map.width * mapScale ||
+            steve.getWorldPos().x + windowWidth > (map.width * mapScale) - 60.0f ||
             steve.getWorldPos().y + windowHeight > map.height * mapScale)
         {
             steve.undoMovement();
