@@ -23,7 +23,7 @@ private:
     // animation variables
     float runningTime{};
     int frame{};
-    int maxFrames{6};
+    int maxFrames{4};
     float updateTime{1.f / 12.f};
     float speed{4.0f};
     float scale{4.0f};
