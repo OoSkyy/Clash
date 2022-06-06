@@ -8,8 +8,8 @@ using namespace std;
 
 int main()
 {
-    const int windowWidth{384};
-    const int windowHeight{384};
+    const int windowWidth{600};
+    const int windowHeight{600};
     const string windowTitle{"Clash"};
     InitWindow(windowWidth, windowHeight, windowTitle.c_str());
 
