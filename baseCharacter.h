@@ -9,12 +9,13 @@ public:
     Vector2 getWorldPos();
     Rectangle getCollisionRec();
     void undoMovement();
+    virtual void tick(float deltaTime);
+    virtual Vector2 getScreenPos() = 0;
 
 protected:
     Texture2D texture{LoadTexture("clash_textures/player_idle.png")};
     Texture2D idle{LoadTexture("clash_textures/player_idle.png")};
     Texture2D run{LoadTexture("clash_textures/player_run.png")};
-    Vector2 screenPos{};
     Vector2 worldPos{};
     Vector2 worldPosLastFrame{};
     float width{};
@@ -28,6 +29,7 @@ protected:
     float updateTime{1.f / 12.f};
     float speed{4.0f};
     float scale{4.0f};
+    Vector2 velocity{};
 
 private:
 };

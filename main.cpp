@@ -32,7 +32,8 @@ int main()
         Prop(statueTex, {mapCenter.x, mapCenter.y - (statueTex.height * mapScale)}),
         Prop(logTex, {mapCenter.x - 600.0f, mapCenter.y - 600.0f})};
 
-    Enemy blob({mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun);
+    Enemy blob({mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun, 5);
+    blob.setTarget(&steve);
 
     SetTargetFPS(60);
     while (!WindowShouldClose())

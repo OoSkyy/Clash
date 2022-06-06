@@ -6,6 +6,7 @@ public:
     Prop(Texture2D tex, Vector2 pos);
     void Render(Vector2 stevePos);
     Rectangle getCollisionRec(Vector2 stevePos);
+
 private:
     Texture2D texture{};
     Vector2 worldPos{};

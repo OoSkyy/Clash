@@ -14,10 +14,9 @@ void Prop::Render(Vector2 stevePos)
 Rectangle Prop::getCollisionRec(Vector2 stevePos)
 {
     screenPos = Vector2Subtract(worldPos, stevePos);
-    return Rectangle {
+    return Rectangle{
         screenPos.x,
         screenPos.y,
         texture.width * scale,
-        texture.height * scale
-    };
+        texture.height * scale};
 }
