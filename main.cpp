@@ -2,6 +2,7 @@
 #include "raymath.h"
 #include "Character.h"
 #include "prop.h"
+#include "enemy.h"
 
 int main()
 {
@@ -13,6 +14,8 @@ int main()
     Texture2D map = LoadTexture("clash_textures/WorldMap.png");
     Texture2D statueTex = LoadTexture("clash_textures/knight_statue.png");
     Texture2D logTex = LoadTexture("clash_textures/log.png");
+    Texture2D blobIdle = LoadTexture("clash_textures/blob_idle.png");
+    Texture2D blobRun = LoadTexture("clash_textures/blob_run.png");
 
     Vector2 mapPos{0.0f, 0.0f};
     const float mapScale{4.0f};
@@ -28,6 +31,8 @@ int main()
     Prop props[]{
         Prop(statueTex, {mapCenter.x, mapCenter.y - (statueTex.height * mapScale)}),
         Prop(logTex, {mapCenter.x - 600.0f, mapCenter.y - 600.0f})};
+
+    Enemy blob({mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun);
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -61,6 +66,8 @@ int main()
                 steve.undoMovement();
             }
         }
+
+        blob.tick(GetFrameTime());
 
         // drawing ends
         EndDrawing();
