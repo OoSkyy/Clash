@@ -3,13 +3,15 @@
 #include "Character.h"
 #include "prop.h"
 #include "enemy.h"
+#include <string>
+using namespace std;
 
 int main()
 {
     const int windowWidth{384};
     const int windowHeight{384};
-    const char *windowTitle{"Clash"};
-    InitWindow(windowWidth, windowHeight, windowTitle);
+    const string windowTitle{"Clash"};
+    InitWindow(windowWidth, windowHeight, windowTitle.c_str());
 
     Texture2D map = LoadTexture("clash_textures/WorldMap.png");
     Texture2D statueTex = LoadTexture("clash_textures/knight_statue.png");
@@ -32,8 +34,25 @@ int main()
         Prop(statueTex, {mapCenter.x, mapCenter.y - (statueTex.height * mapScale)}),
         Prop(logTex, {mapCenter.x - 600.0f, mapCenter.y - 600.0f})};
 
-    Enemy blob({mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun, 5);
-    blob.setTarget(&steve);
+
+        Enemy blobOne{{mapCenter.x - 600.0f, mapCenter.y - 600.0f}, blobIdle, blobRun, 5};
+        Enemy blobTwo{{mapCenter.x + 600.0f, mapCenter.y - 600.0f}, blobIdle, blobRun, 5};
+        Enemy blobThree{{mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun, 5};
+        Enemy blobFour{{mapCenter.x + 600.0f, mapCenter.y + 600.0f}, blobIdle, blobRun, 5};
+        Enemy blobFive{{mapCenter.x + 750.0f, mapCenter.y}, blobIdle, blobRun, 5};
+        Enemy blobSix{{mapCenter.x - 750.0f, mapCenter.y}, blobIdle, blobRun, 5};
+        Enemy blobSeven{{mapCenter.x, mapCenter.y + 800.0f}, blobIdle, blobRun, 5};
+        Enemy blobEight{{mapCenter.x, mapCenter.y - 800.0f}, blobIdle, blobRun, 5};
+
+
+    Enemy* enemies[]{
+        &blobOne, &blobTwo, &blobThree, &blobFour, &blobFive, &blobSix, &blobSeven, &blobEight
+    };
+
+    for (Enemy* blob : enemies)
+    {
+        blob->setTarget(&steve);
+    }
 
     SetTargetFPS(60);
     while (!WindowShouldClose())
@@ -50,6 +69,20 @@ int main()
             p.Render(steve.getWorldPos());
         }
 
+        if (!steve.getAlive())
+        {
+            DrawText("Game Over!", 55.0f, 45.0f, 40, RED);
+            EndDrawing();
+            continue;
+        }
+        else
+        {
+            string steveHealth = "Health: ";
+            steveHealth.append(to_string(steve.getHealth()), 0, 5);
+            steveHealth.append("/100.0");
+            DrawText(steveHealth.c_str(), 55.0f, 45.0f, 30, RED);
+        }
+
         // check map bounds
         steve.tick(GetFrameTime());
         if (steve.getWorldPos().x < 60.0f ||
@@ -60,6 +93,11 @@ int main()
             steve.undoMovement();
         }
 
+        for (Enemy* blob : enemies)
+        {
+            blob->tick(GetFrameTime());
+        }
+
         for (Prop p : props)
         {
             if (CheckCollisionRecs(p.getCollisionRec(steve.getWorldPos()), steve.getCollisionRec()))
@@ -67,15 +105,16 @@ int main()
                 steve.undoMovement();
             }
         }
-
-        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        for (Enemy* blob : enemies)
         {
-            if (CheckCollisionRecs(blob.getCollisionRec(), steve.getCollisionRec()))
+            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
             {
-                blob.setAlive(false);
+                if (CheckCollisionRecs(blob->getCollisionRec(), steve.getCollisionRec()))
+                {
+                    blob->setAlive(false);
+                }
             }
         }
-        blob.tick(GetFrameTime());
 
         // drawing ends
         EndDrawing();
