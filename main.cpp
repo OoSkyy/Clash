@@ -34,22 +34,19 @@ int main()
         Prop(statueTex, {mapCenter.x, mapCenter.y - (statueTex.height * mapScale)}),
         Prop(logTex, {mapCenter.x - 600.0f, mapCenter.y - 600.0f})};
 
+    Enemy blobOne{{mapCenter.x - 600.0f, mapCenter.y - 600.0f}, blobIdle, blobRun, 5};
+    Enemy blobTwo{{mapCenter.x + 600.0f, mapCenter.y - 600.0f}, blobIdle, blobRun, 5};
+    Enemy blobThree{{mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun, 5};
+    Enemy blobFour{{mapCenter.x + 600.0f, mapCenter.y + 600.0f}, blobIdle, blobRun, 5};
+    Enemy blobFive{{mapCenter.x + 750.0f, mapCenter.y}, blobIdle, blobRun, 5};
+    Enemy blobSix{{mapCenter.x - 750.0f, mapCenter.y}, blobIdle, blobRun, 5};
+    Enemy blobSeven{{mapCenter.x, mapCenter.y + 800.0f}, blobIdle, blobRun, 5};
+    Enemy blobEight{{mapCenter.x, mapCenter.y - 800.0f}, blobIdle, blobRun, 5};
 
-        Enemy blobOne{{mapCenter.x - 600.0f, mapCenter.y - 600.0f}, blobIdle, blobRun, 5};
-        Enemy blobTwo{{mapCenter.x + 600.0f, mapCenter.y - 600.0f}, blobIdle, blobRun, 5};
-        Enemy blobThree{{mapCenter.x + 600.0f, mapCenter.y + 600.f}, blobIdle, blobRun, 5};
-        Enemy blobFour{{mapCenter.x + 600.0f, mapCenter.y + 600.0f}, blobIdle, blobRun, 5};
-        Enemy blobFive{{mapCenter.x + 750.0f, mapCenter.y}, blobIdle, blobRun, 5};
-        Enemy blobSix{{mapCenter.x - 750.0f, mapCenter.y}, blobIdle, blobRun, 5};
-        Enemy blobSeven{{mapCenter.x, mapCenter.y + 800.0f}, blobIdle, blobRun, 5};
-        Enemy blobEight{{mapCenter.x, mapCenter.y - 800.0f}, blobIdle, blobRun, 5};
+    Enemy *enemies[]{
+        &blobOne, &blobTwo, &blobThree, &blobFour, &blobFive, &blobSix, &blobSeven, &blobEight};
 
-
-    Enemy* enemies[]{
-        &blobOne, &blobTwo, &blobThree, &blobFour, &blobFive, &blobSix, &blobSeven, &blobEight
-    };
-
-    for (Enemy* blob : enemies)
+    for (Enemy *blob : enemies)
     {
         blob->setTarget(&steve);
     }
@@ -93,7 +90,7 @@ int main()
             steve.undoMovement();
         }
 
-        for (Enemy* blob : enemies)
+        for (Enemy *blob : enemies)
         {
             blob->tick(GetFrameTime());
         }
@@ -105,9 +102,10 @@ int main()
                 steve.undoMovement();
             }
         }
-        for (Enemy* blob : enemies)
+
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
         {
-            if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+            for (Enemy *blob : enemies)
             {
                 if (CheckCollisionRecs(blob->getCollisionRec(), steve.getCollisionRec()))
                 {
