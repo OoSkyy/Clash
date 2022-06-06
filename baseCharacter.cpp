@@ -5,9 +5,19 @@ BaseCharacter::BaseCharacter()
 {
 }
 
-Vector2 BaseCharacter::getWorldPos()
+Vector2 BaseCharacter::getWorldPos() const
 {
     return worldPos;
+}
+
+bool BaseCharacter::getAlive() const
+{
+    return alive;
+}
+
+void BaseCharacter::setAlive(bool isAlive)
+{
+    alive = isAlive;
 }
 
 Rectangle BaseCharacter::getCollisionRec()

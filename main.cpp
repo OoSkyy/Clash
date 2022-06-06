@@ -68,6 +68,13 @@ int main()
             }
         }
 
+        if (IsMouseButtonPressed(MOUSE_LEFT_BUTTON))
+        {
+            if (CheckCollisionRecs(blob.getCollisionRec(), steve.getCollisionRec()))
+            {
+                blob.setAlive(false);
+            }
+        }
         blob.tick(GetFrameTime());
 
         // drawing ends

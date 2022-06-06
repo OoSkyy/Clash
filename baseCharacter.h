@@ -6,11 +6,13 @@ class BaseCharacter
 {
 public:
     BaseCharacter();
-    Vector2 getWorldPos();
+    Vector2 getWorldPos() const;
     Rectangle getCollisionRec();
     void undoMovement();
     virtual void tick(float deltaTime);
     virtual Vector2 getScreenPos() = 0;
+    bool getAlive() const;
+    void setAlive(bool isAlive);
 
 protected:
     Texture2D texture{LoadTexture("clash_textures/player_idle.png")};
@@ -32,6 +34,7 @@ protected:
     Vector2 velocity{};
 
 private:
+    bool alive{true};
 };
 
 #endif
